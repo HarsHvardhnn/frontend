@@ -1,0 +1,105 @@
+<template>
+  <div class="auth-form-container">
+    <div v-if="!isLogIn" class="signup-form">
+      <label for="name">Name</label>
+      <input type="text" id="name" v-model="name">
+
+      <label for="email">Email</label>
+      <input type="email" id="email" v-model="email">
+
+      <label for="password">Password</label>
+      <input type="password" id="password" v-model="password">
+      
+      <button @click="submitForm" class="submit-btn">Signup</button>
+    </div>
+
+    <div v-else class="login-form">
+      <label for="email">Email</label>
+      <input type="email" id="email" v-model="email">
+
+      <label for="password">Password</label>
+      <input type="password" id="password" v-model="password">
+      
+      <button @click="this.submitForm" class="submit-btn">Login</button>
+    </div>
+
+    <button @click="isLogIn=!isLogIn" class="toggle-btn">Toggle Signup/Login</button>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      isLogIn: false,
+      name: '',
+      email: '',
+      password: '',
+    };
+  },
+  methods: {
+    submitForm() {
+      if (this.isLogIn) {
+        console.log('Logging in:', this.email, this.password);
+      } else {
+        console.log('Signing up:', this.name, this.email, this.password);
+      }
+    },
+  },
+};
+</script>
+
+<style scoped>
+.auth-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.signup-form,
+.login-form {
+  max-width: 300px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.submit-btn {
+  background-color: #ad51f9;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #8c2ee4;
+}
+
+.toggle-btn {
+  background-color: #7eeb36;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toggle-btn:hover {
+  background-color: #2980b9;
+}
+</style>
