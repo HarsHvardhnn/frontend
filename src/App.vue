@@ -1,19 +1,10 @@
 <template>
-
-  <AuthPage/>
+  <router-view/>
 </template>
 
 <script>
-import AuthPage from './components/LoginSignup.vue'
+// import AuthPage from './components/LoginSignup.vue'
 
-
-export default {
-  name: 'App',
-  components: {
-    AuthPage
-
-  }
-}
 </script>
 
 <style>

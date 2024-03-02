@@ -1,53 +1,38 @@
 <template>
-  <div>
-    <div v-if="!isLogIn">
-      <label for="name">Name</label>
-      <input type="text" id="name" v-model="name">
-
-      <label for="email">Email</label>
-      <input type="email" id="email" v-model="email">
-
-      <label for="password">Password</label>
-      <input type="password" id="password" v-model="password">
-      
-      <button @click="submitForm">Signup</button>
-    </div>
-
-    <div v-else>
-      <label for="email">Email</label>
-      <input type="email" id="email" v-model="email">
-
-      <label for="password">Password</label>
-      <input type="password" id="password" v-model="password">
-      
-      <button @click="submitForm">Login</button>
-    </div>
+  <div class="hello-world-container">
+    <h1>{{ greeting }}</h1>
+    <p>{{ message }}</p>
   </div>
 </template>
 
 <script>
-
-
 export default {
   data() {
     return {
-      isLogIn: false,
-      name: '', // Add name property for signup
-      email: '',
-      password: '',
+      greeting: 'Hello, Vue.js!',
+      message: 'Welcome to your first Vue.js component!',
     };
-  },
-  methods: {
-    submitForm() {
-      // Handle form submission logic here
-      if (this.isLogIn) {
-        // Logic for login
-        console.log('Logging in:', this.email, this.password);
-      } else {
-        // Logic for signup
-        console.log('Signing up:', this.name, this.email, this.password);
-      }
-    },
   },
 };
 </script>
+
+<style scoped>
+.hello-world-container {
+  text-align: center;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #3498db;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #333;
+  font-size: 16px;
+}
+</style>

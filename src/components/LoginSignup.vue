@@ -2,13 +2,13 @@
   <div class="auth-form-container">
     <div v-if="!isLogIn" class="signup-form">
       <label for="Name">Name</label>
-      <input type="text" id="Name" v-model="Name" />
+      <input required type="text" id="Name" v-model="Name" />
 
       <label for="Email">Email</label>
-      <input type="Email" id="Email" v-model="Email" />
+      <input required type="Email" id="Email" v-model="Email" />
 
       <label for="Password">Password</label>
-      <input type="Password" id="Password" v-model="Password" />
+      <input required='true' type="Password" id="Password" v-model="Password" />
 
       <button @click="signUp" class="submit-btn">Signup</button>
     </div>
@@ -27,6 +27,7 @@
       Toggle Signup/Login
     </button>
     <p v-if="logined">login succsessfull</p>
+    <p v-if="isNotCompleteForm">Please fill all the details </p>
   </div>
 </template>
 
@@ -41,19 +42,19 @@ export default {
       Email: "",
       Password: "",
       logined:false,
+      isNotCompleteForm:false
     };
   },
   methods: {
-    submitForm() {
-      if (this.isLogIn) {
-        console.log("Logging in:", this.Email, this.Password);
-      } else {
-        console.log("Signing up:", this.Name, this.Email, this.Password);
-      }
-    },
     signUp() {
+
+       if(!this.Name || !this.Email || !this.Password){
+        this.isNotCompleteForm = !this.isNotCompleteForm;
+         return;
+       }
+
       axios
-        .post("http://localhost:3000/auth", {
+        .post("http://localhost:3000/auth/signup", {
           Name: this.Name,
           Email: this.Email,
           Password: this.Password,
