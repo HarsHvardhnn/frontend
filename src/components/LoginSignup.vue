@@ -1,24 +1,24 @@
 <template>
   <div class="auth-form-container">
     <div v-if="!isLogIn" class="signup-form">
-      <label for="name">Name</label>
-      <input type="text" id="name" v-model="name">
+      <label for="Name">Name</label>
+      <input type="text" id="Name" v-model="Name">
 
-      <label for="email">Email</label>
-      <input type="email" id="email" v-model="email">
+      <label for="Email">Email</label>
+      <input type="Email" id="Email" v-model="Email">
 
-      <label for="password">Password</label>
-      <input type="password" id="password" v-model="password">
+      <label for="Password">Password</label>
+      <input type="Password" id="Password" v-model="Password">
       
-      <button @click="submitForm" class="submit-btn">Signup</button>
+      <button @click="signUp" class="submit-btn">Signup</button>
     </div>
 
     <div v-else class="login-form">
-      <label for="email">Email</label>
-      <input type="email" id="email" v-model="email">
+      <label for="Email">Email</label>
+      <input type="Email" id="Email" v-model="Email">
 
-      <label for="password">Password</label>
-      <input type="password" id="password" v-model="password">
+      <label for="Password">Password</label>
+      <input type="Password" id="Password" v-model="Password">
       
       <button @click="this.submitForm" class="submit-btn">Login</button>
     </div>
@@ -28,23 +28,39 @@
 </template>
 
 <script>
+ 
+ import axios from  'axios';
+
 export default {
   data() {
     return {
       isLogIn: false,
-      name: '',
-      email: '',
-      password: '',
+      Name: '',
+      Email: '',
+      Password: '',
     };
   },
   methods: {
     submitForm() {
       if (this.isLogIn) {
-        console.log('Logging in:', this.email, this.password);
+        console.log('Logging in:', this.Email, this.Password);
       } else {
-        console.log('Signing up:', this.name, this.email, this.password);
+        console.log('Signing up:', this.Name, this.Email, this.Password);
       }
     },
+    signUp(){
+    axios.post("http://localhost:3000/auth", {Name:this.Name,Email:this.Email,Password:this.Password}
+    ).then((res)=>{
+      console.log('data snet',res);
+    }).catch((err)=>{
+      console.log(err);
+    })
+    },
+    Login(){
+
+    }
+
+
   },
 };
 </script>
