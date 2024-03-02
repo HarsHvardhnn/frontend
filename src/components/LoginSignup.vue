@@ -2,65 +2,84 @@
   <div class="auth-form-container">
     <div v-if="!isLogIn" class="signup-form">
       <label for="Name">Name</label>
-      <input type="text" id="Name" v-model="Name">
+      <input type="text" id="Name" v-model="Name" />
 
       <label for="Email">Email</label>
-      <input type="Email" id="Email" v-model="Email">
+      <input type="Email" id="Email" v-model="Email" />
 
       <label for="Password">Password</label>
-      <input type="Password" id="Password" v-model="Password">
-      
+      <input type="Password" id="Password" v-model="Password" />
+
       <button @click="signUp" class="submit-btn">Signup</button>
     </div>
 
     <div v-else class="login-form">
       <label for="Email">Email</label>
-      <input type="Email" id="Email" v-model="Email">
+      <input type="Email" id="Email" v-model="Email" />
 
       <label for="Password">Password</label>
-      <input type="Password" id="Password" v-model="Password">
-      
-      <button @click="this.submitForm" class="submit-btn">Login</button>
+      <input type="Password" id="Password" v-model="Password" />
+
+      <button @click="Login" class="submit-btn">Login</button>
     </div>
 
-    <button @click="isLogIn=!isLogIn" class="toggle-btn">Toggle Signup/Login</button>
+    <button @click="isLogIn = !isLogIn" class="toggle-btn">
+      Toggle Signup/Login
+    </button>
+    <p v-if="logined">login succsessfull</p>
   </div>
 </template>
 
 <script>
- 
- import axios from  'axios';
+import axios from "axios";
 
 export default {
   data() {
     return {
       isLogIn: false,
-      Name: '',
-      Email: '',
-      Password: '',
+      Name: "",
+      Email: "",
+      Password: "",
+      logined:false,
     };
   },
   methods: {
     submitForm() {
       if (this.isLogIn) {
-        console.log('Logging in:', this.Email, this.Password);
+        console.log("Logging in:", this.Email, this.Password);
       } else {
-        console.log('Signing up:', this.Name, this.Email, this.Password);
+        console.log("Signing up:", this.Name, this.Email, this.Password);
       }
     },
-    signUp(){
-    axios.post("http://localhost:3000/auth", {Name:this.Name,Email:this.Email,Password:this.Password}
-    ).then((res)=>{
-      console.log('data snet',res);
-    }).catch((err)=>{
-      console.log(err);
-    })
+    signUp() {
+      axios
+        .post("http://localhost:3000/auth", {
+          Name: this.Name,
+          Email: this.Email,
+          Password: this.Password,
+        })
+        .then((res) => {
+          console.log("data snet", res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    Login(){
-
-    }
-
-
+    Login() {
+      axios
+        .post("http://localhost:3000/auth/login", {
+          Email: this.Email,
+          Password: this.Password,
+        })
+        .then((res) => {
+          console.log("data checked and user received is ",res.data, "login succsessfull");
+          
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+        this.logined=!this.logined;
+    },
   },
 };
 </script>
